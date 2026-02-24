@@ -3,4 +3,6 @@ project(Valiutos_Keitykla)
 
 set(CMAKE_CXX_STANDARD 26)
 
-add_executable(Valiutos_Keitykla main.cpp)
+add_executable(Valiutos_Keitykla main.cpp
+        utilities.h
+)
