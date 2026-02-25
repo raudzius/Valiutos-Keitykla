@@ -24,10 +24,7 @@ const string GBP_STRING = "GBP";
 const string USD_STRING = "USD";
 const string INR_STRING = "INR";
 
-void printCurrencyOptions(bool invalid) {
-    if (invalid) {
-        cout << "Neteisinga ivestis, bandykite vel:" << endl;
-    }
+void printCurrencyOptions() {
     cout << "1. EUR -> GBP" << endl;
     cout << "2. EUR -> USD" << endl;
     cout << "3. EUR -> INR" << endl;

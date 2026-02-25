@@ -24,7 +24,7 @@ int main() {
                 bool firstServiceIsRunning = true;
                 while (firstServiceIsRunning) {
                     cout << "Iveskite numeri tos valiutos kurios kursa norite palyginti:" << endl;
-                    printCurrencyOptions(false);
+                    printCurrencyOptions();
 
                     int currencyIndex;
                     cin >> currencyIndex;
@@ -47,13 +47,11 @@ int main() {
                 break;
             }
             case 2:
-            // cout << "Pasirinkite valiutą kurią norite iškeisti į EUR:" << endl;
-            // cout << "1. GBP" << endl;
-            // cout << "2. USD" << endl;
-            // cout << "3. INR" << endl;
-            // int currencyIndex2;
-            // cin >> currencyIndex2;
-            // break;
+            cout << "Pasirinkite valiuta kuria norite iskeisti:" << endl;
+
+            int currencyIndex2;
+            cin >> currencyIndex2;
+            break;
             case 3:
             case 0:
                 isRunning = false;
