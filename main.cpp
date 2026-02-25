@@ -3,61 +3,95 @@ using namespace std;
 
 
 int main() {
-    float GBP_Pirkti = 0.8600;
-    float GBP_Parduoti = 0.9220;
-    float USD_Pirkti = 1.1460;
-    float USD_Parduoti = 1.2340;
-    float INR_Pirkti = 101.3862;
-    float INR_Parduoti = 107.8546;
-
-    bool isRunning = true;
-    while (isRunning) {
-        int serviceNumber;
+    bool programIsRunning = true;
+    while (programIsRunning) {
+        // char necessary to prevent crashing if user input is not an int
+        char userInput;
         cout << "Pasirinkite paslauga, ivesdami paslaugos numeri:" << endl;
         cout << "Valiutos kurso palyginimas - 1" << endl;
         cout << "Valiutos isigijimas - 2" << endl;
         cout << "Valiutos pardavimas - 3" << endl;
         cout << "Iseiti - 0" << endl;
-        cin >> serviceNumber;
-        switch (serviceNumber) {
-            case 1: {
-                bool firstServiceIsRunning = true;
-                while (firstServiceIsRunning) {
-                    cout << "Iveskite numeri tos valiutos kurios kursa norite palyginti:" << endl;
-                    printCurrencyOptions();
+        cout << endl;
+        cin >> userInput;
 
+        // turn ASCII value to int, to use in switch
+        switch (static_cast<int>(userInput) - '0') {
+            case 1: {
+                while (true) {
+                    cout << "Iveskite palyginimo operacijos numerį:" << endl;
+                    printCurrencyOptions();
                     int currencyIndex;
                     cin >> currencyIndex;
 
-                    float exchangeRate = getCurrencyRate(currencyIndex);
-                    array<string, 2> exchangeCurrencyCodes = getCurrencyCode(currencyIndex);
-                    cout << "1 " << exchangeCurrencyCodes[0] << " = " << exchangeRate << " " << exchangeCurrencyCodes[1]
-                            <<
-                            endl;
-                    cout << endl;
-
-                    cout << "Palyginti kita kursa? - 1" << endl;
-                    cout << "Grizti? - 0" << endl;
-                    int repeatService;
-                    cin >> repeatService;
-                    if (repeatService != 1) {
-                        firstServiceIsRunning = false;
+                    // back to main services
+                    if (currencyIndex == 0) {
+                        break;
                     }
+
+                    double exchangeRate = getCurrencyRate(currencyIndex);
+                    array<string, 2> exchangeCurrencyCodes = getCurrencyCode(currencyIndex);
+                    cout << "1 " << exchangeCurrencyCodes[0] << " = " << roundTo2DecimalPlaces(exchangeRate) << " " <<
+                            exchangeCurrencyCodes[1]
+                            << endl << endl;
+                }
+                // breaks switch in order to go back to choosing a service instead oftriggering case 2
+                break;
+            }
+            case 2: {
+                while (true) {
+                    cout << "Iveskite valiutos pirkimo operacijos numeri:" << endl;
+                    printCurrencyOptions();
+                    int currencyIndex;
+                    cin >> currencyIndex;
+
+                    if (currencyIndex == 0) {
+                        // back to service menu
+                        break;
+                    }
+
+                    cout << "Iveskite turimos valiutos kieki:" << endl;
+                    double inputAmount;
+                    cin >> inputAmount;
+
+                    double exchangeRate = getCurrencyBuyRate(currencyIndex);
+                    array<string, 2> exchangeCurrencyCodes = getCurrencyCode(currencyIndex);
+                    cout << inputAmount << " " << exchangeCurrencyCodes[0] << " -> " <<
+                            roundTo2DecimalPlaces(exchangeRate * inputAmount) << " " <<
+                            exchangeCurrencyCodes[1]
+                            << endl << endl;
                 }
                 break;
             }
-            case 2:
-            cout << "Pasirinkite valiuta kuria norite iskeisti:" << endl;
+            case 3: {
+                while (true) {
+                    cout << "Iveskite valiutos pardavimo operacijos numeri:" << endl;
+                    printCurrencyOptions();
+                    int currencyIndex;
+                    cin >> currencyIndex;
 
-            int currencyIndex2;
-            cin >> currencyIndex2;
-            break;
-            case 3:
+                    if (currencyIndex == 0) {
+                        break;
+                    }
+
+                    cout << "Iveskite turimos valiutos kieki:" << endl;
+                    double inputAmount;
+                    cin >> inputAmount;
+
+                    double exchangeRate = getCurrencySellRate(currencyIndex);
+                    array<string, 2> exchangeCurrencyCodes = getCurrencyCode(currencyIndex);
+                    cout << inputAmount << " " << exchangeCurrencyCodes[0] << " -> " << roundTo2DecimalPlaces(
+                                exchangeRate * inputAmount) << " " << exchangeCurrencyCodes[1]
+                            << endl << endl;
+                }
+                break;
+            }
             case 0:
-                isRunning = false;
+                programIsRunning = false;
                 break;
             default:
-                break;
+                // return to main menu
+                cout << "Neteisingas pasirinkimas, badyk dar karta" << endl;
         }
     }
 }
