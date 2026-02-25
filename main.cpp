@@ -15,15 +15,15 @@ int main() {
     bool isRunning = true;
     while (isRunning) {
         int serviceNumber;
-        cout << "Pasirinkite paslaugą, įvesdami paslaugos numerį:" << endl;
+        cout << "Pasirinkite paslauga, ivesdami paslaugos numeri:" << endl;
         cout << "Valiutos kurso palyginimas - 1" << endl;
-        cout << "Valiutos įsigijimas - 2" << endl;
+        cout << "Valiutos isigijimas - 2" << endl;
         cout << "Valiutos pardavimas - 3" << endl;
-        cout << "Išeiti - 4" << endl;
+        cout << "Iseiti - 4" << endl;
         cin >> serviceNumber;
         switch (serviceNumber) {
-            case 1:
-                cout << "Įveskite numerį tos valiutos kurios kursą norite palyginti su EUR:" << endl;
+            case 1: {
+                cout << "Iveskite numeri tos valiutos kurios kursa norite palyginti su EUR:" << endl;
                 int currencyIndex = getChosenServiceIndex();
 
                 if (currencyIndex == 1 || currencyIndex == 2 || currencyIndex == 3) {
@@ -36,6 +36,7 @@ int main() {
                     printCurrencyOptions(true);
                 }
                 break;
+            }
             case 2:
                 // cout << "Pasirinkite valiutą kurią norite iškeisti į EUR:" << endl;
                 // cout << "1. GBP" << endl;
