@@ -1,5 +1,3 @@
-#include <iostream>
-#include <string>
 #include "utilities.h"
 using namespace std;
 
@@ -19,32 +17,47 @@ int main() {
         cout << "Valiutos kurso palyginimas - 1" << endl;
         cout << "Valiutos isigijimas - 2" << endl;
         cout << "Valiutos pardavimas - 3" << endl;
-        cout << "Iseiti - 4" << endl;
+        cout << "Iseiti - 0" << endl;
         cin >> serviceNumber;
         switch (serviceNumber) {
             case 1: {
-                cout << "Iveskite numeri tos valiutos kurios kursa norite palyginti su EUR:" << endl;
-                int currencyIndex = getChosenServiceIndex();
+                bool firstServiceIsRunning = true;
+                while (firstServiceIsRunning) {
+                    cout << "Iveskite numeri tos valiutos kurios kursa norite palyginti:" << endl;
+                    printCurrencyOptions(false);
 
-                if (currencyIndex == 1 || currencyIndex == 2 || currencyIndex == 3) {
-                    float exchangeRate = getEurToCurrencyRate(currencyIndex);
-                    string currencyIndexText = convertCurrencyIndexToText(currencyIndex);
+                    int currencyIndex;
+                    cin >> currencyIndex;
 
-                    cout << "1 EUR = " << exchangeRate << " " << currencyIndexText << endl;
+                    float exchangeRate = getCurrencyRate(currencyIndex);
+                    array<string, 2> exchangeCurrencyCodes = getCurrencyCode(currencyIndex);
+                    cout << "1 " << exchangeCurrencyCodes[0] << " = " << exchangeRate << " " << exchangeCurrencyCodes[1]
+                            <<
+                            endl;
                     cout << endl;
-                } else {
-                    printCurrencyOptions(true);
+
+                    cout << "Palyginti kita kursa? - 1" << endl;
+                    cout << "Grizti? - 0" << endl;
+                    int repeatService;
+                    cin >> repeatService;
+                    if (repeatService != 1) {
+                        firstServiceIsRunning = false;
+                    }
                 }
                 break;
             }
             case 2:
-                // cout << "Pasirinkite valiutą kurią norite iškeisti į EUR:" << endl;
-                // cout << "1. GBP" << endl;
-                // cout << "2. USD" << endl;
-                // cout << "3. INR" << endl;
-                // int currencyIndex2;
-                // cin >> currencyIndex2;
-                // break;
+            // cout << "Pasirinkite valiutą kurią norite iškeisti į EUR:" << endl;
+            // cout << "1. GBP" << endl;
+            // cout << "2. USD" << endl;
+            // cout << "3. INR" << endl;
+            // int currencyIndex2;
+            // cin >> currencyIndex2;
+            // break;
+            case 3:
+            case 0:
+                isRunning = false;
+                break;
             default:
                 break;
         }

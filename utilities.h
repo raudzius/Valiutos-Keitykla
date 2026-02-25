@@ -6,72 +6,90 @@
 #define VALIUTOS_KEITYKLA_UTILITYFUNCTIONS_H
 
 #include <iostream>
+#include <string>
+#include <array>
 using namespace std;
 
-const int GBP = 1;
-const int USD = 2;
-const int INR = 3;
-const int EUR = 4;
+enum SelectedCurrencies {
+    EUR_GBP,
+    EUR_USD,
+    EUR_INR,
+    GBP_EUR,
+    USD_EUR,
+    INR_EUR
+};
+
+const string EUR_STRING = "EUR";
+const string GBP_STRING = "GBP";
+const string USD_STRING = "USD";
+const string INR_STRING = "INR";
 
 void printCurrencyOptions(bool invalid) {
     if (invalid) {
-        cout << "Neteisinga įvestis, bandykite vėl:" << endl;
+        cout << "Neteisinga ivestis, bandykite vel:" << endl;
     }
-    cout << "1. GBP" << endl;
-    cout << "2. USD" << endl;
-    cout << "3. INR" << endl;
-    cout << "4. Eur" << endl;
+    cout << "1. EUR -> GBP" << endl;
+    cout << "2. EUR -> USD" << endl;
+    cout << "3. EUR -> INR" << endl;
+    cout << "4. GBP -> EUR" << endl;
+    cout << "5. USD -> EUR" << endl;
+    cout << "6. INR -> EUR" << endl;
+    cout << endl;
 }
 
-float getEurToCurrencyRate(int currencyIndex) {
-    const float GBP_Bendras = 0.8729;
-    const float USD_Bendras = 1.1793;
-    const float INR_Bendras = 104.6918;
-    const float GBP_To_EUR = 1.1463;
-    const float USD_To_EUR = 0.8479;
-    const float INR_To_EUR = 0.009;
+float getCurrencyRate(int currencyIndex) {
+    const float EUR_TO_GBP = 0.8729;
+    const float EUR_TO_USD = 1.1793;
+    const float EUR_TO_INR = 104.6918;
+    const float GBP_TO_EUR = 1.1463;
+    const float USD_TO_EUR = 0.8479;
+    const float INR_TO_EUR = 0.009;
+
     float exchangeRate;
 
     switch (currencyIndex) {
-        case GBP:
-            exchangeRate = GBP_Bendras;
+        case EUR_GBP:
+            exchangeRate = EUR_TO_GBP;
             break;
-        case USD:
-            exchangeRate = USD_Bendras;
+        case EUR_USD:
+            exchangeRate = EUR_TO_USD;
             break;
-        case INR:
-            exchangeRate = INR_Bendras;
+        case EUR_INR:
+            exchangeRate = EUR_TO_INR;
             break;
-        case EUR:
-            exchangeRate =
+        case GBP_EUR:
+            exchangeRate = GBP_TO_EUR;
+            break;
+        case USD_EUR:
+            exchangeRate = USD_TO_EUR;
+            break;;
+        case INR_EUR:
+            exchangeRate = INR_TO_EUR;
             break;
         default:
-            throw "Error";
+            exchangeRate = EUR_TO_GBP;
     }
 
     return exchangeRate;
 }
 
-string convertCurrencyIndexToText(int currencyIndex) {
+array<string, 2> getCurrencyCode(int currencyIndex) {
     switch (currencyIndex) {
-        case 1:
-            return "GBP";
-        case 2:
-            return "USD";
-        case 3:
-            return "INR";
-        case 4:
-            return "EUR";
-            case 5:
-            throw "Error";
+        case EUR_GBP:
+            return {EUR_STRING, GBP_STRING};
+        case EUR_USD:
+            return {EUR_STRING, USD_STRING};
+        case EUR_INR:
+            return {EUR_STRING, INR_STRING};
+        case GBP_EUR:
+            return {GBP_STRING, EUR_STRING};
+        case USD_EUR:
+            return {USD_STRING, EUR_STRING};
+        case INR_EUR:
+            return {INR_STRING, EUR_STRING};
+        default:
+            return {EUR_STRING, GBP_STRING};
     }
-}
-
-int getChosenServiceIndex() {
-    printCurrencyOptions(false);
-    int currencyIndex;
-    cin >> currencyIndex;
-    return currencyIndex;
 }
 
 #endif //VALIUTOS_KEITYKLA_UTILITYFUNCTIONS_H
