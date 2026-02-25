@@ -1,8 +1,14 @@
+#include <iomanip>
+
 #include "utilities.h"
 using namespace std;
 
 
 int main() {
+    // output numbers with 2 decimal places when numbers are whole
+    cout << fixed << showpoint;
+    cout << setprecision(2);
+
     bool programIsRunning = true;
     while (programIsRunning) {
         // char necessary to prevent crashing if user input is not an int
